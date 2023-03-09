@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Library</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Library</h1>
+        <button class="add-book">Add a Book</button>
+      </div>
+
+      <div class="library-display">
+        <div class="book-display is-not-read">
+          <p class="book-title">The Hobbit</p>
+          <p class="book-author">J.R.R. Tolkien</p>
+          <p class="book pages">295 pages</p>
+          <div class="buttons">
+            <button class="read book-btn">Read</button>
+            <button class="remove book-btn">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="new-book hidden">
+      <form class="new-book-form" action="#">
+        <div class="form-input">
+          <label for="book-title">Book Title</label>
+          <input
+            type="text"
+            class="book-title-input input-text"
+            id="book-title"
+          />
+        </div>
+        <div class="form-input">
+          <label for="book-author">Author</label>
+          <input
+            type="text"
+            class="book-author-input input-text"
+            id="book-author"
+          />
+        </div>
+        <div class="form-input">
+          <label for="book-pages">No. of Pages</label>
+          <input
+            type="number"
+            class="book-pages-input input-text"
+            id="book-pages"
+          />
+        </div>
+        <div class="form-radio">
+          <input type="radio" class="book-read" id="book-read" />
+          <label for="book-read">Read</label>
+        </div>
+        <div class="form-radio">
+          <input type="radio" class="book-unread" id="book-unread" />
+          <label for="book-unread">Not read</label>
+        </div>
+        <button class="submit-book">Add Book</button>
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
