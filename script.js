@@ -67,29 +67,7 @@ window.addEventListener('click', (e) => {
   } else return;
 });
 
-let library = [
-  {
-    author: 'JRR Tolkien',
-    pages: '297',
-    read: true,
-    title: 'The Hobbit',
-    year: '1937',
-  },
-  {
-    author: 'JRR Tolkien',
-    pages: '297',
-    read: true,
-    title: 'The Hobbit',
-    year: '1937',
-  },
-  {
-    author: 'JRR Tolkien',
-    pages: '297',
-    read: true,
-    title: 'The Hobbit',
-    year: '1937',
-  },
-];
+let library = [];
 
 function Book(title, author, pages, year, read) {
   this.title = title;
