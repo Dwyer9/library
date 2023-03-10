@@ -14,8 +14,8 @@ function hideModal() {
   newBookForm.classList.add('hidden');
 }
 
-function createBook(title, author, pages, read) {
-  const markup = `<div class="book-display is-not-read">
+function renderBook(title, author, pages, read) {
+  const markup = `<div class="book-display ${read ? 'is-read' : 'is-not-read'}">
   <p class="book-title">${title}</p>
   <p class="book-author">${author}</p>
   <p class="book pages">${pages} pages</p>
@@ -25,7 +25,7 @@ function createBook(title, author, pages, read) {
   </div>
 </div>`;
 
-  libraryDisplay.appendChild(markup);
+  libraryDisplay.insertAdjacentHTML('afterbegin', markup);
 }
 
 addBookBtn.addEventListener('click', showModal);
@@ -35,6 +35,28 @@ container.addEventListener('click', (e) => {
     !e.target.classList.contains('add-book')
   )
     hideModal();
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target.classList.contains('read')) {
+    const target = e.target.closest('.book-display');
+    if (target.classList.contains('is-not-read')) {
+      target.classList.remove('is-not-read');
+      target.classList.add('is-read');
+    } else {
+      target.classList.add('is-not-read');
+      target.classList.remove('is-read');
+    }
+  } else return;
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target.classList.contains('remove')) {
+    const target = e.target.closest('.book-display');
+    if (confirm('Are you sure you want to remove this book?')) {
+      target.remove();
+    } else return;
+  } else return;
 });
 
 const books = [];
