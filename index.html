@@ -18,7 +18,8 @@
         <div class="book-display is-not-read">
           <p class="book-title">The Hobbit</p>
           <p class="book-author">J.R.R. Tolkien</p>
-          <p class="book pages">295 pages</p>
+          <p class="book-pages">295 pages</p>
+          <p class="book-year">1937</p>
           <div class="buttons">
             <button class="read book-btn">Read</button>
             <button class="remove book-btn">Remove</button>
@@ -53,12 +54,30 @@
             id="book-pages"
           />
         </div>
+        <div class="form-input">
+          <label for="book-year">Year</label>
+          <input
+            type="number"
+            class="book-year-input input-text"
+            id="book-year"
+          />
+        </div>
         <div class="form-radio">
-          <input type="radio" class="book-read" id="book-read" />
+          <input
+            type="radio"
+            class="book-read"
+            id="book-read"
+            name="read-status"
+          />
           <label for="book-read">Read</label>
         </div>
         <div class="form-radio">
-          <input type="radio" class="book-unread" id="book-unread" />
+          <input
+            type="radio"
+            class="book-unread"
+            id="book-unread"
+            name="read-status"
+          />
           <label for="book-unread">Not read</label>
         </div>
         <button class="submit-book">Add Book</button>

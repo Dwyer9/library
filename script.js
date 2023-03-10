@@ -3,6 +3,13 @@ const container = document.querySelector('.container');
 const newBookForm = document.querySelector('.new-book');
 const header = document.querySelector('.header');
 const libraryDisplay = document.querySelector('.library-display');
+const submitBookBtn = document.querySelector('.submit-book');
+const bookTitleInput = document.querySelector('.book-title-input');
+const bookAuthorInput = document.querySelector('.book-author-input');
+const bookPagesInput = document.querySelector('.book-pages-input');
+const bookYearInput = document.querySelector('.book-year-input');
+const bookReadInput = document.querySelector('.book-read');
+const bookUnreadInput = document.querySelector('.book-unread');
 
 function showModal() {
   container.classList.add('is-blurred');
@@ -14,11 +21,12 @@ function hideModal() {
   newBookForm.classList.add('hidden');
 }
 
-function renderBook(title, author, pages, read) {
+function renderBook(title, author, pages, year, read) {
   const markup = `<div class="book-display ${read ? 'is-read' : 'is-not-read'}">
   <p class="book-title">${title}</p>
   <p class="book-author">${author}</p>
-  <p class="book pages">${pages} pages</p>
+  <p class="book-pages">${pages} pages</p>
+  <p class="book-year">${year}</p>
   <div class="buttons">
     <button class="read book-btn">Read</button>
     <button class="remove book-btn">Remove</button>
@@ -59,11 +67,67 @@ window.addEventListener('click', (e) => {
   } else return;
 });
 
-const books = [];
+let library = [
+  {
+    author: 'JRR Tolkien',
+    pages: '297',
+    read: true,
+    title: 'The Hobbit',
+    year: '1937',
+  },
+  {
+    author: 'JRR Tolkien',
+    pages: '297',
+    read: true,
+    title: 'The Hobbit',
+    year: '1937',
+  },
+  {
+    author: 'JRR Tolkien',
+    pages: '297',
+    read: true,
+    title: 'The Hobbit',
+    year: '1937',
+  },
+];
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, year, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
+  this.year = year;
   this.read = read;
 }
+
+function addBookToLibrary(title, author, pages, year, read) {
+  const book = new Book(title, author, pages, year, read);
+  library.push(book);
+}
+
+function displayLibrary() {
+  library.forEach((item) => {
+    renderBook(item.title, item.author, item.pages, item.year, item.read);
+  });
+}
+
+submitBookBtn.addEventListener('click', (e) => {
+  const title = bookTitleInput.value;
+  const author = bookAuthorInput.value;
+  const pages = bookPagesInput.value;
+  const year = bookYearInput.value;
+  const read = bookReadInput.checked;
+
+  addBookToLibrary(title, author, pages, year, read);
+  hideModal();
+
+  libraryDisplay.innerHTML = '';
+  displayLibrary();
+
+  bookTitleInput.value = '';
+  bookAuthorInput.value = '';
+  bookPagesInput.value = '';
+  bookYearInput.value = '';
+  bookReadInput.checked = false;
+});
+
+window.addEventListener('load', displayLibrary);
