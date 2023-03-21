@@ -10,6 +10,11 @@ const bookPagesInput = document.querySelector('.book-pages-input');
 const bookYearInput = document.querySelector('.book-year-input');
 const bookReadInput = document.querySelector('.book-read');
 const bookUnreadInput = document.querySelector('.book-unread');
+const titleError = document.querySelector('.title-error');
+const authorError = document.querySelector('.author-error');
+const pagesError = document.querySelector('.pages-error');
+const yearError = document.querySelector('.year-error');
+const form = document.querySelector('.new-book-form');
 
 function showModal() {
   container.classList.add('is-blurred');
@@ -73,6 +78,7 @@ window.addEventListener('click', (e) => {
 
 let library = [];
 let id = 0;
+let isFormValid = true;
 
 function Book(title, author, pages, year, read, id) {
   this.title = title;
@@ -108,6 +114,9 @@ submitBookBtn.addEventListener('click', (e) => {
   const year = bookYearInput.value;
   const read = bookReadInput.checked;
 
+  checkValid(title, author, pages, year);
+  if (!isFormValid) return;
+
   addBookToLibrary(title, author, pages, year, read, id);
   hideModal();
 
@@ -132,3 +141,47 @@ function removeBookFromLibrary(id) {
 }
 
 window.addEventListener('load', displayLibrary);
+
+// Form Validation
+function checkValid(title, author, pages, year) {
+  isFormValid = true;
+  bookTitleInput.classList.remove('invalid');
+  titleError.classList.add('hidden');
+  bookAuthorInput.classList.remove('invalid');
+  authorError.classList.add('hidden');
+  bookPagesInput.classList.remove('invalid');
+  pagesError.classList.add('hidden');
+  bookYearInput.classList.remove('invalid');
+  yearError.classList.add('hidden');
+
+  if (!title) {
+    bookTitleInput.classList.add('invalid');
+    titleError.classList.remove('hidden');
+    isFormValid = false;
+  }
+  if (!author) {
+    bookAuthorInput.classList.add('invalid');
+    authorError.classList.remove('hidden');
+    isFormValid = false;
+  }
+  if (!pages) {
+    bookPagesInput.classList.add('invalid');
+    pagesError.classList.remove('hidden');
+    isFormValid = false;
+  }
+  if (!year) {
+    bookYearInput.classList.add('invalid');
+    yearError.classList.remove('hidden');
+    isFormValid = false;
+  }
+}
+
+form.addEventListener('input', () => {
+  const title = bookTitleInput.value;
+  const author = bookAuthorInput.value;
+  const pages = bookPagesInput.value;
+  const year = bookYearInput.value;
+
+  checkValid(title, author, pages, year);
+  console.log(isFormValid);
+});

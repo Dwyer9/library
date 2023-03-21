@@ -35,9 +35,9 @@ body {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  top: 20%;
+  top: 100px;
   width: 300px;
-  height: 450px;
+  /* height: 450px; */
   padding: 30px;
   border: solid black 2px;
   border-radius: 10px;
@@ -134,4 +134,13 @@ button:active {
 button.book-btn {
   font-size: 12px;
   padding: 7px 20px;
+}
+
+.invalid {
+  border: solid 2px red;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
 }
