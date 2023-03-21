@@ -21,8 +21,10 @@ function hideModal() {
   newBookForm.classList.add('hidden');
 }
 
-function renderBook(title, author, pages, year, read) {
-  const markup = `<div class="book-display ${read ? 'is-read' : 'is-not-read'}">
+function renderBook(title, author, pages, year, read, id) {
+  const markup = `<div class="book-display ${
+    read ? 'is-read' : 'is-not-read'
+  }" data-id="${id}">
   <p class="book-title">${title}</p>
   <p class="book-author">${author}</p>
   <p class="book-pages">${pages} pages</p>
@@ -61,30 +63,41 @@ window.addEventListener('click', (e) => {
 window.addEventListener('click', (e) => {
   if (e.target.classList.contains('remove')) {
     const target = e.target.closest('.book-display');
+    const id = target.dataset.id;
     if (confirm('Are you sure you want to remove this book?')) {
       target.remove();
+      removeBookFromLibrary(id);
     } else return;
   } else return;
 });
 
 let library = [];
+let id = 0;
 
-function Book(title, author, pages, year, read) {
+function Book(title, author, pages, year, read, id) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.year = year;
   this.read = read;
+  this.id = id;
 }
 
-function addBookToLibrary(title, author, pages, year, read) {
-  const book = new Book(title, author, pages, year, read);
+function addBookToLibrary(title, author, pages, year, read, id) {
+  const book = new Book(title, author, pages, year, read, id);
   library.push(book);
 }
 
 function displayLibrary() {
   library.forEach((item) => {
-    renderBook(item.title, item.author, item.pages, item.year, item.read);
+    renderBook(
+      item.title,
+      item.author,
+      item.pages,
+      item.year,
+      item.read,
+      item.id
+    );
   });
 }
 
@@ -95,7 +108,7 @@ submitBookBtn.addEventListener('click', (e) => {
   const year = bookYearInput.value;
   const read = bookReadInput.checked;
 
-  addBookToLibrary(title, author, pages, year, read);
+  addBookToLibrary(title, author, pages, year, read, id);
   hideModal();
 
   libraryDisplay.innerHTML = '';
@@ -107,5 +120,15 @@ submitBookBtn.addEventListener('click', (e) => {
   bookYearInput.value = '';
   bookReadInput.checked = false;
 });
+
+function removeBookFromLibrary(id) {
+  let index;
+
+  library.forEach((item, i) => {
+    if (item.id === id) index = i;
+  });
+
+  library.splice(index, 1);
+}
 
 window.addEventListener('load', displayLibrary);
